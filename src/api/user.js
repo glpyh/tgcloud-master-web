@@ -1,8 +1,15 @@
 import request from '@/utils/request'
 
+export function getUserInfo() {
+  return request({
+    url: '/uac/users/logininfo',
+    method: 'get'
+  })
+}
+
 export function fetchList(query) {
   return request({
-    url: '/users/list',
+    url: '/uac/users/list',
     method: 'post',
     params: query
   })
@@ -10,7 +17,7 @@ export function fetchList(query) {
 
 export function createUser(data) {
   return request({
-    url: '/users/add',
+    url: '/uac/users/add',
     method: 'post',
     data
   })
@@ -18,7 +25,7 @@ export function createUser(data) {
 
 export function updateUser(data) {
   return request({
-    url: '/users/update',
+    url: '/uac/users/update',
     method: 'post',
     data
   })
@@ -26,7 +33,7 @@ export function updateUser(data) {
 
 export function updateStatus(data) {
   return request({
-    url: '/users/status',
+    url: '/uac/users/status',
     method: 'post',
     headers: {
       'Content-type': 'application/x-www-form-urlencoded'
@@ -37,7 +44,7 @@ export function updateStatus(data) {
 
 export function updatePassword(data) {
   return request({
-    url: '/users/password',
+    url: '/uac/users/password',
     method: 'post',
     data
   })
@@ -45,7 +52,7 @@ export function updatePassword(data) {
 
 export function getUserById(userId) {
   return request({
-    url: '/users/info',
+    url: '/uac/users/info',
     method: 'get',
     params: { userId }
   })
@@ -53,7 +60,7 @@ export function getUserById(userId) {
 
 export function updateUserById(data) {
   return request({
-    url: '/users/user',
+    url: '/uac/users/user',
     method: 'post',
     data
   })

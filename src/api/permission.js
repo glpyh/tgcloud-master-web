@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/permissions/tree',
+    url: '/uac/permissions/tree',
     method: 'post',
     params: query
   })
@@ -10,7 +10,7 @@ export function fetchList(query) {
 
 export function createPerm(data) {
   return request({
-    url: '/permissions/add',
+    url: '/uac/permissions/add',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function createPerm(data) {
 
 export function updatePerm(data) {
   return request({
-    url: '/permissions/update',
+    url: '/uac/permissions/update',
     method: 'post',
     data
   })
@@ -26,7 +26,7 @@ export function updatePerm(data) {
 
 export function updateStatus(data) {
   return request({
-    url: '/permissions/status',
+    url: '/uac/permissions/status',
     method: 'post',
     headers: {
       'Content-type': 'application/x-www-form-urlencoded'
@@ -36,14 +36,14 @@ export function updateStatus(data) {
 }
 
 export function menuNode() {
-  return request({ url: '/permissions/menunode',
+  return request({ url: '/uac/permissions/menunode',
     method: 'get'
   })
 }
 
 export function getRolePerms(roleId) {
   return request({
-    url: '/permissions/getRolePerms',
+    url: '/uac/permissions/getRolePerms',
     method: 'get',
     params: { roleId }
   })
@@ -51,14 +51,14 @@ export function getRolePerms(roleId) {
 
 export function getAllPerms() {
   return request({
-    url: '/permissions/allPerms',
+    url: '/uac/permissions/allPerms',
     mounted: 'get'
   })
 }
 
 export function updateRolePerms(data) {
   return request({
-    url: '/permissions/updateRolePerms',
+    url: '/uac/permissions/updateRolePerms',
     method: 'post',
     data
   })
@@ -66,7 +66,7 @@ export function updateRolePerms(data) {
 
 export function flashPerms() {
   return request({
-    url: '/permissions/flashPerms',
+    url: '/uac/permissions/flashPerms',
     method: 'get'
   })
 }

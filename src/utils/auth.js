@@ -1,15 +1,21 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'purchase-token'
+const TokenKey = 'TGCLOUD_AUTH_TOKEN'
+const RefreshToken = 'REFRESH_TOKEN'
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  var token = Cookies.get(TokenKey)
+  if (!token) return token
+  return JSON.parse(token).access_token
 }
 
-export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+export function getRefreshToken() {
+  var token = Cookies.get(TokenKey)
+  if (!token) return token
+  return JSON.parse(token).refresh_token
 }
 
 export function removeToken() {
+  Cookies.remove(RefreshToken)
   return Cookies.remove(TokenKey)
 }
