@@ -257,8 +257,8 @@ export default {
     getList() {
       this.listLoading = true;
       fetchList(this.listQuery).then(response => {
-        this.list = response.data.list;
-        this.total = response.data.total * 1;
+        this.list = response.result.list;
+        this.total = response.result.total * 1;
         this.listLoading = false;
       });
     },
@@ -266,7 +266,7 @@ export default {
       if (this.departments.length > 0) return;
       let query = { status: 0 };
       departFetchList(query).then(response => {
-        this.departments = response.data.list;
+        this.departments = response.result.list;
       });
     },
     handleFilter() {
@@ -350,13 +350,13 @@ export default {
     },
     handleOpenRoleDialog(row) {
       getUserRoles(row.id).then(response => {
-        this.userRoles = response.data.map(d => {
+        this.userRoles = response.result.map(d => {
           return d.id;
         });
       });
       if (this.roles.length === 0) {
         getAllRoles().then(response => {
-          this.roles = response.data.map(x => {
+          this.roles = response.result.map(x => {
             return { id: x.id, rolename: `${x.rolename}(${x.description})` };
           });
         });

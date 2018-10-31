@@ -29,34 +29,52 @@ service.interceptors.response.use(
   * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中
   */
   response => {
-    const res = response.data
-    if (res.status !== 0) {
+    if (response.data.code === 200) {
+      if (response.data) {
+        return response.data
+      }
+    }
+    if (
+      response.data.code === 10011039 ||
+      response.data.code === 10011040 ||
+      response.data.code === 10011041
+    ) {
+      console.info('登录超时', response.data)
+      return Promise.reject(response)
+    } else // 5000:一般常规错误 50004:非法的token; 50008:其他客户端登录了;  50012:Token 过期了;
+    if (response.code === 5004 || response.code === 5008 || response.code === 5012) {
+      MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        store.dispatch('FedLogOut').then(() => {
+          location.reload()// 为了重新实例化vue-router对象 避免bug
+        })
+      })
+    } else {
       Message({
-        message: res.message,
+        message: response.data.message,
         type: 'error',
         duration: 5 * 1000
       })
-      // 5000:一般常规错误 50004:非法的token; 50008:其他客户端登录了;  50012:Token 过期了;
-      if (res.code === 5004 || res.code === 5008 || res.code === 5012) {
-        MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('FedLogOut').then(() => {
-            location.reload()// 为了重新实例化vue-router对象 避免bug
-          })
-        })
-      }
-      return Promise.reject('error')
-    } else {
-      return response.data
+      return Promise.reject(response)
     }
   },
   error => {
-    console.log('err' + error)// for debug
+    let message = error.message
+    if (error.response.status && error.response.status === 404) {
+      message = '请求资源离家出走了,等一会就回来'
+    } else if (
+      error.response &&
+      error.response.data &&
+      error.response.data.message
+    ) {
+      message = error.response.data.message
+    }
+    console.log('err' + error) // for debug
     Message({
-      message: error.message,
+      message: message,
       type: 'error',
       duration: 5 * 1000
     })

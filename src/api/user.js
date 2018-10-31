@@ -9,8 +9,8 @@ export function getUserInfo() {
 
 export function fetchList(query) {
   return request({
-    url: '/uac/users/list',
-    method: 'post',
+    url: '/uac/users/',
+    method: 'get',
     params: query
   })
 }

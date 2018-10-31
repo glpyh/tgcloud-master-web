@@ -45,11 +45,11 @@ const user = {
       return new Promise((resolve, reject) => {
         getUserInfo()
           .then(response => {
-            if (!response.data) {
+            if (!response.result) {
               // 由于mockjs 不支持自定义状态码只能这样hack
               reject("error");
             }
-            const data = response.data;
+            const data = response.result;
             commit("SET_ID", data.id);
             commit("SET_ROLES", data.roles);
             commit("SET_PERMISSIONS", data.permissions);

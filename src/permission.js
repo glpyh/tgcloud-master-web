@@ -14,45 +14,40 @@ function hasPermission(permissions, perms) {
   return true
 }
 
-const whiteList = ['/login', '/authredirect'] // no redirect whitelist
+const whiteList = [''] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
   if (getToken()) {
     // determine if there has token
     /* has token*/
-    if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
+    if (!store.getters.id) {
+      // 判断当前用户是否已拉取完user_info信息
+      store
+        .dispatch('GetUserInfo')
+        .then(res => {
+          // 拉取user_info
+          const permissions = res.result.permissions // note: 返回该用户拥有的权限
+          store.dispatch('GenerateRoutes', { permissions }).then(() => {
+            // 根据permissions权限生成可访问的路由表
+            router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+          })
+        })
+        .catch(() => {
+          store.dispatch('FedLogOut').then(() => {
+            Message.error('验证失败, 请重新登录')
+            next()
+          })
+        })
     } else {
-      if (store.getters.roles.length === 0) {
-        // 判断当前用户是否已拉取完user_info信息
-        store
-          .dispatch('GetUserInfo')
-          .then(res => {
-            // 拉取user_info
-            const permissions = res.data.permissions // note: 返回该用户拥有的权限
-            store.dispatch('GenerateRoutes', { permissions }).then(() => {
-              // 根据permissions权限生成可访问的路由表
-              router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-              next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-            })
-          })
-          .catch(() => {
-            store.dispatch('FedLogOut').then(() => {
-              Message.error('验证失败, 请重新登录')
-              next()
-            })
-          })
+      // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
+      if (hasPermission(store.getters.permissions, to.meta.perms)) {
+        next() //
       } else {
-        // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
-        if (hasPermission(store.getters.permissions, to.meta.perms)) {
-          next() //
-        } else {
-          next({ path: '/401', replace: true, query: { noGoBack: true }})
-        }
-        // 可删 ↑
+        next({ path: '/401', replace: true, query: { noGoBack: true }})
       }
+      // 可删 ↑
     }
   } else {
     /* has no token*/
@@ -61,7 +56,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // next('/login') // 否则全部重定向到登录页
-      window.location.href = process.env.PASSPORT_URL
+      window.location.href = process.env.PASSPORT_URL + '?redirectUrl=' + window.location.href
       NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
     }
   }
