@@ -26,11 +26,7 @@ export function updateDepartment(data) {
 
 export function updateStatus(data) {
   return request({
-    url: '/uac/departments/status',
-    method: 'post',
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded'
-    },
-    params: data
+    url: `/uac/departments/${data.id}/status/${data.status}`,
+    method: 'put'
   })
 }

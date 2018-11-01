@@ -9,7 +9,6 @@
       </el-select>
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
       <el-button v-has-add:department class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
-      <el-button class="filter-item" type="primary" :loading="downloadLoading" v-waves icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
@@ -27,6 +26,16 @@
       <el-table-column class-name="status-col" label="状态" width="70px">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status | statusText}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="创建日期">
+        <template slot-scope="scope">
+          <span>{{scope.row.createdTime}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="创建人">
+        <template slot-scope="scope">
+          <span>{{scope.row.creator}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" class-name="small-padding fixed-width" width="320px">
@@ -86,7 +95,6 @@ import {
   updateStatus
 } from '@/api/department'
 import waves from '@/directive/waves' // 水波纹指令
-import { parseTime } from '@/utils'
 import config from '@/utils/config'
 
 export default {
@@ -238,33 +246,6 @@ export default {
           })
         }
       })
-    },
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['部门名', '描述', '状态']
-        const filterVal = [
-          'deptname',
-          'description',
-          'status'
-        ]
-        const data = this.formatJson(filterVal, this.list)
-        excel.export_json_to_excel(tHeader, data, '部门列表')
-        this.downloadLoading = false
-      })
-    },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v =>
-        filterVal.map(j => {
-          if (j === 'createdate') {
-            return parseTime(v[j])
-          } else if (j === 'status') {
-            return config.userStatusValue[v[j]]
-          } else {
-            return v[j]
-          }
-        })
-      )
     }
   }
 }

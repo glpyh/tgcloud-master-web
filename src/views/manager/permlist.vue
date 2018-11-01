@@ -9,9 +9,7 @@
       </el-select>
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
       <el-button v-has-add:permission class="filter-item" style="margin-left: 10px;" @click="handleTopCreate" type="primary" icon="el-icon-edit">添加</el-button>
-      <el-button class="filter-item" type="primary" :loading="downloadLoading" v-waves icon="el-icon-download" @click="handleDownload">导出</el-button>
-      <el-button v-has-perm:permission:flashPerms class="filter-item" type="primary" v-waves icon="el-icon-refresh" @click="handleFlashPerms">更新权限</el-button>
-    </div>
+     </div>
 
     <tree-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
       style="width: 100%">
@@ -40,14 +38,14 @@
           <span>{{scope.row.description}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建日期" v-if="false">
+      <el-table-column  align="center" label="创建日期">
         <template slot-scope="scope">
-          <span>{{scope.row.createdate | parseTime('{y}-{m}-{d} {h}:{i}')}}</span>
+          <span>{{scope.row.createdTime}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建人" v-if="false">
+      <el-table-column  align="center" label="创建人">
         <template slot-scope="scope">
-          <span>{{scope.row.createusername}}</span>
+          <span>{{scope.row.creator}}</span>
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="70px">
@@ -120,8 +118,7 @@ import {
   createPerm,
   updatePerm,
   updateStatus,
-  menuNode,
-  flashPerms
+  menuNode
 } from '@/api/permission'
 import waves from '@/directive/waves' // 水波纹指令
 import treeTable from '@/components/TreeTable'
@@ -244,21 +241,13 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.data
+        this.list = response.result
         this.listLoading = false
       })
     },
     handleFilter() {
       this.listQuery.pageNum = 1
       this.getList()
-    },
-    handleFlashPerms() {
-      flashPerms().then(() => {
-        this.$notify({
-          message: '更新权限成功',
-          type: 'success'
-        })
-      })
     },
     handleModifyStatus(row, status) {
       const id = row.id
@@ -336,54 +325,10 @@ export default {
         }
       })
     },
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['权限名称', '类型', '地址url', '权限code', '描述', '状态']
-        const filterVal = [
-          'permname',
-          'type',
-          'url',
-          'code',
-          'description',
-          'status'
-        ]
-        const data = this.formatJson(filterVal, this.list)
-        excel.export_json_to_excel(tHeader, data, '权限列表')
-        this.downloadLoading = false
-      })
-    },
-    formatJson(filterVal, jsonData) {
-      const data = []
-      const getChildren = element => {
-        if (element.children && element.children.length > 0) {
-          element.children.forEach(children => {
-            data.push(children)
-            getChildren(children)
-          })
-        }
-      }
-      jsonData.forEach(element => {
-        data.push(element)
-        getChildren(element)
-      })
-
-      return data.map(v =>
-        filterVal.map(j => {
-          if (j === 'status') {
-            return config.userStatusValue[v[j]]
-          } else if (j === 'type') {
-            return typeValue[v[j]]
-          } else {
-            return v[j]
-          }
-        })
-      )
-    },
     onDialogOpen() {
       if (!this.isNeedGetTypeData) { return }
       menuNode().then(response => {
-        this.typeData = response.data
+        this.typeData = response.result
         this.isNeedGetTypeData = false
       })
     }

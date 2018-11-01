@@ -17,7 +17,7 @@ export function fetchList(query) {
 
 export function createUser(data) {
   return request({
-    url: '/uac/users/add',
+    url: '/uac/users/',
     method: 'post',
     data
   })
@@ -25,20 +25,16 @@ export function createUser(data) {
 
 export function updateUser(data) {
   return request({
-    url: '/uac/users/update',
-    method: 'post',
+    url: '/uac/users/',
+    method: 'put',
     data
   })
 }
 
 export function updateStatus(data) {
   return request({
-    url: '/uac/users/status',
-    method: 'post',
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded'
-    },
-    params: data
+    url: `/uac/users/${data.id}/status/${data.status}`,
+    method: 'put'
   })
 }
 

@@ -1,6 +1,5 @@
 import router from './router'
 import store from './store'
-import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // getToken from cookie
@@ -36,7 +35,8 @@ router.beforeEach((to, from, next) => {
         })
         .catch(() => {
           store.dispatch('FedLogOut').then(() => {
-            Message.error('验证失败, 请重新登录')
+            // Message.error('验证失败, 请重新登录')
+            window.location.href = process.env.PASSPORT_URL + '?redirectUrl=' + window.location.href
             next()
           })
         })
