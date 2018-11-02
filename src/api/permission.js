@@ -36,26 +36,19 @@ export function menuNode() {
     method: 'get'
   })
 }
-
 export function getRolePerms(roleId) {
   return request({
-    url: '/uac/perms/getRolePerms',
-    method: 'get',
-    params: { roleId }
+    url: `/uac/roles/${roleId}/perms/`,
+    method: 'get'
   })
 }
 
 export function getAllPerms() {
+  const query = { type: 0, status: 0 }
   return request({
-    url: '/uac/perms/allPerms',
-    mounted: 'get'
+    url: '/uac/perms/',
+    method: 'get',
+    params: query
   })
 }
 
-export function updateRolePerms(data) {
-  return request({
-    url: '/uac/perms/updateRolePerms',
-    method: 'post',
-    data
-  })
-}

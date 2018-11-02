@@ -1,14 +1,18 @@
 <template>
   <div class="app-container calendar-list-container">
     <div class="filter-container">
-      <el-input v-if="false" @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="权限名" v-model="listQuery.permname">
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="权限名" v-model="listQuery.permname">
       </el-input>
-      <el-select v-if="false" clearable class="filter-item" style="width: 130px" v-model="listQuery.status" placeholder="状态">
+      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.status" placeholder="状态">
         <el-option v-for="item in  userStatus" :key="item.key" :label="item.display_name" :value="item.key">
         </el-option>
       </el-select>
+      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" placeholder="类型">
+        <el-option v-for="item in  typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
+        </el-option>
+      </el-select>
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
-      <el-button v-has-add:permission class="filter-item" style="margin-left: 10px;" @click="handleTopCreate" type="primary" icon="el-icon-edit">添加</el-button>
+      <el-button v-has-add:permission class="filter-item" style="margin-left: 10px;" @click="handleTopCreate" type="primary" icon="el-icon-edit">添加顶级菜单</el-button>
      </div>
 
     <tree-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
@@ -67,6 +71,12 @@
       </el-table-column>
     </tree-table>
 
+    <div class="pagination-container">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.pageNum"
+        :page-sizes="[10,20,30, 50]" :page-size="listQuery.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
+
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" @open="onDialogOpen">
       <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='width: 400px; margin-left:50px;'>
         <el-form-item label="权限名" prop="permname">
@@ -75,7 +85,7 @@
         <el-form-item label="描述" prop="description">
           <el-input v-model="temp.description"></el-input>
         </el-form-item>
-        <el-form-item v-if="dialogStatus !== 'topCreate'" label="父节点" prop="parentid"> 
+        <el-form-item v-if="dialogStatus !== 'topCreate'" label="父节点"> 
           <el-select class="filter-item" style="width: 130px" v-model="temp.parentid">
             <el-option v-for="item in typeData" :key="item.id" :label="item.permname" :value="item.id">
             </el-option>
@@ -145,8 +155,12 @@ export default {
     return {
       tableKey: 0,
       list: null,
+      total: null,
       listLoading: true,
       listQuery: {
+        pageNum: 1,
+        pageSize: 20,
+        type: 0,
         permname: null,
         status: 0
       },
@@ -158,7 +172,6 @@ export default {
         update: '编辑',
         topCreate: '顶级节点添加',
         childrenCreate: '子节点添加'
-
       },
       temp: this.initCreateUpdateTemp(),
       typeData: [],
@@ -241,12 +254,20 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        this.list = response.result
+        this.list = response.result.list
+        this.total = response.result.total * 1
         this.listLoading = false
       })
     },
     handleFilter() {
-      this.listQuery.pageNum = 1
+      this.getList()
+    },
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNum = val
       this.getList()
     },
     handleModifyStatus(row, status) {

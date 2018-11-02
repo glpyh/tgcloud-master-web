@@ -154,8 +154,8 @@
 
 <script>
 /* eslint-disable */
-import { fetchList, createUser, updateUser, updateStatus } from "@/api/user";
-import { getUserRoles, getAllRoles, updateUserRoles } from "@/api/role";
+import { fetchList, createUser, updateUser, updateStatus, getRoles, bindUserRoles } from "@/api/user";
+import { getAllRoles } from "@/api/role";
 import { fetchList as departFetchList } from "@/api/department";
 import waves from "@/directive/waves"; // 水波纹指令
 import { parseTime } from "@/utils";
@@ -348,14 +348,14 @@ export default {
       });
     },
     handleOpenRoleDialog(row) {
-      getUserRoles(row.id).then(response => {
+      getRoles(row.id).then(response => {
         this.userRoles = response.result.map(d => {
           return d.id;
         });
       });
       if (this.roles.length === 0) {
         getAllRoles().then(response => {
-          this.roles = response.result.map(x => {
+          this.roles = response.result.list.map(x => {
             return { id: x.id, rolename: `${x.rolename}(${x.description})` };
           });
         });
@@ -365,7 +365,7 @@ export default {
       this.dialogTransferVisible = true;
     },
     updateUserRolesData() {
-      updateUserRoles({ userId: this.curUserId, roleIds: this.userRoles }).then(
+      bindUserRoles({ userId: this.curUserId, roleIds: this.userRoles }).then(
         () => {
           this.dialogTransferVisible = false;
           this.$notify({

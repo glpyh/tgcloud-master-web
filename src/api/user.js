@@ -61,3 +61,18 @@ export function updateUserById(data) {
     data
   })
 }
+
+export function getRoles(userId) {
+  return request({
+    url: `/uac/users/${userId}/roles/`,
+    method: 'get'
+  })
+}
+
+export function bindUserRoles(data) {
+  return request({
+    url: `/uac/users/bindRoles`,
+    method: 'post',
+    data
+  })
+}

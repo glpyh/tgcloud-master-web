@@ -31,24 +31,17 @@ export function updateStatus(data) {
   })
 }
 
-export function getUserRoles(userId) {
-  return request({
-    url: '/uac/roles/getUserRoles',
-    method: 'get',
-    params: { userId }
-  })
-}
-
 export function getAllRoles() {
   return request({
-    url: '/uac/roles/allRoles',
-    mounted: 'get'
+    url: '/uac/roles/',
+    mounted: 'get',
+    params: { status: 0 }
   })
 }
 
-export function updateUserRoles(data) {
+export function bindRolePerms(data) {
   return request({
-    url: '/uac/roles/updateUserRoles',
+    url: '/uac/roles/bindPerms',
     method: 'post',
     data
   })

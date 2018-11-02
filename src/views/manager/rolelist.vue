@@ -80,8 +80,9 @@
       </div>
     </el-dialog>
 
-    <el-dialog title="权限设置" :visible.sync="dialogTreeVisible">
+    <el-dialog title="权限设置" :visible.sync="dialogTreeVisible" width="65%">
       <el-tree ref="permTree" show-checkbox highlight-current="true" default-expand-all="true" 
+              :render-content="renderContent"
               :props="{ key: 'id', label: 'permname' }"
               node-key="id" :data="Permissions"></el-tree>
       <div slot="footer" class="dialog-footer">
@@ -97,9 +98,10 @@ import {
   fetchList,
   createRole,
   updateRole,
-  updateStatus
+  updateStatus,
+  bindRolePerms
 } from '@/api/role'
-import { getAllPerms, getRolePerms, updateRolePerms } from '@/api/permission'
+import { getAllPerms, getRolePerms } from '@/api/permission'
 import waves from '@/directive/waves' // 水波纹指令
 import config from '@/utils/config'
 
@@ -259,7 +261,7 @@ export default {
     handleOpenPermDialog(row) {
       if (this.Permissions.length === 0) {
         getAllPerms().then(response => {
-          this.Permissions = response.result
+          this.Permissions = response.result.list
         })
       }
       getRolePerms(row.id).then(response => {
@@ -275,7 +277,7 @@ export default {
     updateRolePermsData() {
       // 返回被选中的叶子节点的 keys
       const rolePerms = this.$refs.permTree.getCheckedKeys(true)
-      updateRolePerms({ roleId: this.curRoleId, permIds: rolePerms }).then(() => {
+      bindRolePerms({ roleId: this.curRoleId, permIds: rolePerms }).then(() => {
         this.dialogTreeVisible = false
         this.$notify({
           title: '成功',
@@ -284,7 +286,32 @@ export default {
           duration: 2000
         })
       })
+    },
+    renderContent(h, { node, data, store }) {
+      return (
+        <span style='flex: 1; display: flex; align-items: center; font-size: 14px; padding-right: 8px;'>
+          <span>
+            <span>{node.label}</span>
+          </span>
+          <span>
+            <span class='treenode'>{data.type}</span>
+            <span class='treenode'>{data.description}</span>
+            <span class='treenode'>{data.url}</span>
+            <span class='treenode'>{data.code}</span>
+            <span class='treenode'>{data.component}</span>
+            <span class='treenode'>{data.title}</span>
+            <span class='treenode'>{data.path}</span>
+          </span>
+        </span>)
     }
   }
 }
 </script>
+
+<style>
+.treenode{
+  padding-left:30px;
+  font-size: 13px;
+
+}
+</style>
