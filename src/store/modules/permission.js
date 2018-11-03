@@ -23,6 +23,8 @@ function filterAsyncRouter(asyncRouterMap, permissions) {
     if (hasPermission(permissions, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, permissions)
+
+        return route.children.length > 0
       }
       return true
     }

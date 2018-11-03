@@ -73,5 +73,21 @@ export const asyncRouterMap = [
       { path: 'list-perm', component: _import('manager/permlist'), name: 'listPerm', meta: { title: 'listPerm', icon: 'lock', perms: ['permission:view'] }}
     ]
   },
+  {
+    path: '/monitor',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'monitor',
+    meta: {
+      title: 'monitor',
+      icon: 'component'
+    },
+    children: [
+      { path: 'admin', component: _import('monitor/admin/index'), name: 'monitor_admin', meta: { title: 'monitor_admin', icon: 'people', perms: ['monitor_admin:view'] }},
+      { path: 'eureka', component: _import('monitor/eureka/index'), name: 'monitor_eureka', meta: { title: 'monitor_eureka', icon: 'people', perms: ['monitor_eureka:view'] }},
+      { path: 'hystrix', component: _import('monitor/hystrix/index'), name: 'monitor_hystrix', meta: { title: 'monitor_hystrix', icon: 'peoples', perms: ['monitor_hystrix:view'] }},
+      { path: 'swagger', component: _import('monitor/swagger/index'), name: 'monitor_swagger', meta: { title: 'monitor_swagger', icon: 'lock', perms: ['monitor_swagger:view'] }}
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
