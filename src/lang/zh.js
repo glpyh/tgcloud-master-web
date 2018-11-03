@@ -9,8 +9,8 @@ export default {
     logineduser: '用户信息',
 
     monitor: '服务监控',
-    monitor_admin: '服务健康',
-    monitor_eureka: '服务发现',
+    monitor_admin: '服务监控',
+    monitor_eureka: '服务注册',
     monitor_hystrix: '断路器监控',
     monitor_swagger: 'API文档'
   },
