@@ -80,7 +80,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog title="权限设置" :visible.sync="dialogTreeVisible" width="65%">
+    <el-dialog title="权限设置" :visible.sync="dialogTreeVisible" width="50%">
       <el-tree ref="permTree" show-checkbox highlight-current="true" default-expand-all="true" 
               :render-content="renderContent"
               :props="{ key: 'id', label: 'permname' }"
@@ -294,13 +294,8 @@ export default {
             <span>{node.label}</span>
           </span>
           <span>
-            <span class='treenode'>{data.type}</span>
-            <span class='treenode'>{data.description}</span>
             <span class='treenode'>{data.url}</span>
             <span class='treenode'>{data.code}</span>
-            <span class='treenode'>{data.component}</span>
-            <span class='treenode'>{data.title}</span>
-            <span class='treenode'>{data.path}</span>
           </span>
         </span>)
     }
