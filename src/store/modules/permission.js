@@ -1,6 +1,4 @@
 import { constantRouterMap } from '@/router'
-import { getRouterTree } from '@/api/permission'
-
 const _import = require('../../router/_import_' + process.env.NODE_ENV)
 
 /**
@@ -59,13 +57,11 @@ const permission = {
   },
   actions: {
     GenerateRoutes({ commit }, data) {
-      const { permissions } = data
-      return getRouterTree().then((res) => {
-        const asyncRouterMap = res.result
-        initComponent(asyncRouterMap)
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, permissions)
-        commit('SET_ROUTERS', accessedRouters)
-      })
+      const permissions = data.permissions
+      const asyncRouterMap = data.routers
+      initComponent(asyncRouterMap)
+      const accessedRouters = filterAsyncRouter(asyncRouterMap, permissions)
+      commit('SET_ROUTERS', accessedRouters)
 
       // return new Promise(resolve => {
       //   const { permissions } = data
