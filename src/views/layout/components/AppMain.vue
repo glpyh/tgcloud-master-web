@@ -21,3 +21,10 @@ export default {
   }
 }
 </script>
+
+<style>
+/* https://github.com/PanJiaChen/vue-element-admin/issues/330
+   其实就是楼上所说的fill的问题，最简单的方法全局加一个css path { fill: inherit !important }。 */
+path { fill: inherit !important }
+</style>
+

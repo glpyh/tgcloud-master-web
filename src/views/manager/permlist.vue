@@ -17,7 +17,12 @@
 
     <tree-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
       style="width: 100%">
-      <el-table-column align="center" label="权限名" >
+      <el-table-column align="center" label="icon图标" >
+        <template slot-scope="scope">
+          <svg-icon v-bind:icon-class="`${scope.row.icon}`" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="权限名" width="120px">
         <template slot-scope="scope">
           <span>{{scope.row.permname}}</span>
         </template>
@@ -106,6 +111,9 @@
             <el-option v-for="item in typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
             </el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="icon图标" prop="icon">
+          <el-input v-model="temp.icon"></el-input>
         </el-form-item>
         <el-form-item label="地址url" prop="url">
           <el-input v-model="temp.url"></el-input>
