@@ -32,12 +32,17 @@
           <span>{{scope.row.type | typeText}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="地址url" width="210px">
+      <el-table-column align="center" label="请求url" width="210px">
         <template slot-scope="scope">
           <span>{{scope.row.url}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="权限code" width="160px">
+      <el-table-column align="center" label="请求action" width="100px">
+        <template slot-scope="scope">
+          <span>{{scope.row.action}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="权限code" width="200px">
         <template slot-scope="scope">
           <span>{{scope.row.code}}</span>
         </template>
@@ -115,8 +120,14 @@
         <el-form-item label="icon图标" prop="icon">
           <el-input v-model="temp.icon"></el-input>
         </el-form-item>
-        <el-form-item label="地址url" prop="url">
+        <el-form-item label="请求url" prop="url">
           <el-input v-model="temp.url"></el-input>
+        </el-form-item>
+        <el-form-item label="请求action" prop="action">
+          <el-select class="filter-item" style="width: 130px" v-model="temp.action">
+            <el-option v-for="item in actionOptions" :key="item.key" :label="item.display_name" :value="item.key">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="权限code" prop="code">
           <el-input v-model="temp.code"></el-input>
@@ -176,6 +187,14 @@ const typeOptions = [
   { key: 2, display_name: '按钮' }
 ]
 
+const actionOptions = [
+  { key: '', display_name: '' },
+  { key: 'GET', display_name: 'GET' },
+  { key: 'POST', display_name: 'POST' },
+  { key: 'PUT', display_name: 'PUT' },
+  { key: 'DELETE', display_name: 'DELETE' }
+]
+
 const typeValue = typeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
   return acc
@@ -202,6 +221,7 @@ export default {
       },
       permType,
       typeOptions,
+      actionOptions,
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -281,6 +301,7 @@ export default {
         parentid: null,
         type: null,
         url: null,
+        action: null,
         code: null,
         icon: null,
         sort: null,
