@@ -56,7 +56,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'purchase-web',
+      title: 'tgcloud-admin-web',
       path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
     }),
   ]

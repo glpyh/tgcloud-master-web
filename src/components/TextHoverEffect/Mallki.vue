@@ -14,7 +14,7 @@ export default {
     },
     text: {
       type: String,
-      default: 'purchase-web'
+      default: 'tgcloud-admin-web'
     }
   }
 }
