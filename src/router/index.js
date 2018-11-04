@@ -56,38 +56,38 @@ export default new Router({
   routes: constantRouterMap
 })
 
-export const asyncRouterMap = [
-  {
-    path: '/manager',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'manager',
-    meta: {
-      title: 'manager',
-      icon: 'component'
-    },
-    children: [
-      { path: 'list-department', component: _import('manager/department'), name: 'listDepartment', meta: { title: 'listDepartment', icon: 'people', perms: ['department:view'] }},
-      { path: 'list-user', component: _import('manager/userlist'), name: 'listUser', meta: { title: 'listUser', icon: 'people', perms: ['user:view'] }},
-      { path: 'list-role', component: _import('manager/rolelist'), name: 'listRole', meta: { title: 'listRole', icon: 'peoples', perms: ['role:view'] }},
-      { path: 'list-perm', component: _import('manager/permlist'), name: 'listPerm', meta: { title: 'listPerm', icon: 'lock', perms: ['permission:view'] }}
-    ]
-  },
-  {
-    path: '/monitor',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'monitor',
-    meta: {
-      title: 'monitor',
-      icon: 'component'
-    },
-    children: [
-      { path: 'admin', component: _import('monitor/admin/index'), name: 'monitor_admin', meta: { title: 'monitor_admin', icon: 'people', perms: ['monitor_admin:view'] }},
-      { path: 'eureka', component: _import('monitor/eureka/index'), name: 'monitor_eureka', meta: { title: 'monitor_eureka', icon: 'people', perms: ['monitor_eureka:view'] }},
-      { path: 'hystrix', component: _import('monitor/hystrix/index'), name: 'monitor_hystrix', meta: { title: 'monitor_hystrix', icon: 'peoples', perms: ['monitor_hystrix:view'] }},
-      { path: 'swagger', component: _import('monitor/swagger/index'), name: 'monitor_swagger', meta: { title: 'monitor_swagger', icon: 'lock', perms: ['monitor_swagger:view'] }}
-    ]
-  },
-  { path: '*', redirect: '/404', hidden: true }
-]
+// export const asyncRouterMap = [
+//   {
+//     path: '/manager',
+//     component: _import('layout/Layout'),
+//     redirect: 'noredirect',
+//     name: 'manager',
+//     meta: {
+//       title: 'manager',
+//       icon: 'component'
+//     },
+//     children: [
+//       { path: 'list-department', component: _import('manager/department'), name: 'listDepartment', meta: { title: 'listDepartment', icon: 'people', perms: ['department:view'] }},
+//       { path: 'list-user', component: _import('manager/userlist'), name: 'listUser', meta: { title: 'listUser', icon: 'people', perms: ['user:view'] }},
+//       { path: 'list-role', component: _import('manager/rolelist'), name: 'listRole', meta: { title: 'listRole', icon: 'peoples', perms: ['role:view'] }},
+//       { path: 'list-perm', component: _import('manager/permlist'), name: 'listPerm', meta: { title: 'listPerm', icon: 'lock', perms: ['permission:view'] }}
+//     ]
+//   },
+//   {
+//     path: '/monitor',
+//     component: _import('layout/Layout'),
+//     redirect: 'noredirect',
+//     name: 'monitor',
+//     meta: {
+//       title: 'monitor',
+//       icon: 'component'
+//     },
+//     children: [
+//       { path: 'admin', component: _import('monitor/admin/index'), name: 'monitor_admin', meta: { title: 'monitor_admin', icon: 'people', perms: ['monitor_admin:view'] }},
+//       { path: 'eureka', component: _import('monitor/eureka/index'), name: 'monitor_eureka', meta: { title: 'monitor_eureka', icon: 'people', perms: ['monitor_eureka:view'] }},
+//       { path: 'hystrix', component: _import('monitor/hystrix/index'), name: 'monitor_hystrix', meta: { title: 'monitor_hystrix', icon: 'peoples', perms: ['monitor_hystrix:view'] }},
+//       { path: 'swagger', component: _import('monitor/swagger/index'), name: 'monitor_swagger', meta: { title: 'monitor_swagger', icon: 'lock', perms: ['monitor_swagger:view'] }}
+//     ]
+//   },
+//   { path: '*', redirect: '/404', hidden: true }
+// ]

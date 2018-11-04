@@ -36,9 +36,9 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleUpdatePassword">密码修改</el-button>
-        <el-button type="primary" v-if="isEditMode===false" @click="handleUpdate">启用编辑</el-button>
-        <el-button type="primary" v-if="isEditMode===true" @click="UpdateData">保存</el-button>
-        <el-button type="primary" v-if="isEditMode===true" @click="handleCancelUpdate">取消</el-button>
+        <el-button type="primary" v-show="isEditMode===false" @click="handleUpdate">启用编辑</el-button>
+        <el-button type="primary" v-show="isEditMode===true" @click="UpdateData">保存</el-button>
+        <el-button type="primary" v-show="isEditMode===true" @click="handleCancelUpdate">取消</el-button>
       </el-form-item>
     </el-form>
 

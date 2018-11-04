@@ -31,6 +31,13 @@ export function updateStatus(data) {
   })
 }
 
+export function deletePerm(id) {
+  return request({
+    url: `/uac/perms/${id}`,
+    method: 'delete'
+  })
+}
+
 export function menuNode() {
   return request({ url: '/uac/perms/menunode',
     method: 'get'
@@ -49,6 +56,13 @@ export function getAllPerms() {
     url: '/uac/perms/',
     method: 'get',
     params: query
+  })
+}
+
+export function getRouterTree() {
+  return request({
+    url: `/uac/perms/tree`,
+    method: 'get'
   })
 }
 

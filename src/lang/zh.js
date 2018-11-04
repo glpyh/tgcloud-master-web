@@ -1,18 +1,18 @@
 export default {
   route: {
-    dashboard: '首页',
-    manager: '系统管理',
-    listDepartment: '部门列表',
-    listUser: '用户列表',
-    listRole: '角色列表',
-    listPerm: '权限列表',
-    logineduser: '用户信息',
+    dashboard: '首页'
+    // manager: '系统管理',
+    // listDepartment: '部门列表',
+    // listUser: '用户列表',
+    // listRole: '角色列表',
+    // listPerm: '权限列表',
+    // logineduser: '用户信息',
 
-    monitor: '服务监控',
-    monitor_admin: '服务监控',
-    monitor_eureka: '服务注册',
-    monitor_hystrix: '断路器监控',
-    monitor_swagger: 'API文档'
+    // monitor: '服务监控',
+    // monitor_admin: '服务健康',
+    // monitor_eureka: '服务注册',
+    // monitor_hystrix: '断路器监控',
+    // monitor_swagger: 'API文档'
   },
   navbar: {
     logOut: '退出登录',

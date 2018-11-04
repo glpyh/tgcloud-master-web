@@ -4,7 +4,7 @@
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="权限名" v-model="listQuery.permname">
       </el-input>
       <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.status" placeholder="状态">
-        <el-option v-for="item in  userStatus" :key="item.key" :label="item.display_name" :value="item.key">
+        <el-option v-for="item in  permType" :key="item.key" :label="item.display_name" :value="item.key">
         </el-option>
       </el-select>
       <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" placeholder="类型">
@@ -37,19 +37,29 @@
           <span>{{scope.row.code}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="描述" >
+      <el-table-column align="center" label="描述" width="200px">
         <template slot-scope="scope">
           <span>{{scope.row.description}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建日期">
+      <el-table-column align="center" label="是否导航" >
         <template slot-scope="scope">
-          <span>{{scope.row.createdTime}}</span>
+          <span>{{scope.row.isnavigate?'是':'否'}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建人">
+      <el-table-column  align="center" label="导航标题title" width="150px">
         <template slot-scope="scope">
-          <span>{{scope.row.creator}}</span>
+          <span>{{scope.row.title}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="导航组件" width="250px">
+        <template slot-scope="scope">
+          <span>{{scope.row.component}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="导航路径path" width="250px">
+        <template slot-scope="scope">
+          <span>{{scope.row.path}}</span>
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="70px">
@@ -57,15 +67,15 @@
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status | statusText}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" class-name="small-padding fixed-width" width="300px">
+      <el-table-column align="center" fixed="right" label="操作" class-name="small-padding fixed-width" width="300px">
         <template slot-scope="scope">
-          <el-button v-has-add:permission type="primary" size="mini" v-if="scope.row.type!==2" @click="handleChildrenCreate(scope.row)">添加</el-button>
-          <el-button v-has-update:permission v-if="scope.row.status=='0'" type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button v-has-status:permission v-if="scope.row.status!='-1'" size="mini" type="success" @click="handleModifyStatus(scope.row,'-1')">删除
+          <el-button v-has-add:permission type="primary" size="mini" v-show="scope.row.type!==2" @click="handleChildrenCreate(scope.row)">添加</el-button>
+          <el-button v-has-update:permission v-show="scope.row.status=='0'" type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+          <el-button v-has-status:permission v-show="scope.row.status!='-1'" size="mini" type="success" @click="handleDelete(scope.row)">删除
           </el-button>
-          <el-button v-has-status:permission v-if="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
+          <el-button v-has-status:permission v-show="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
           </el-button>
-          <el-button v-has-status:permission v-if="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
+          <el-button v-has-status:permission v-show="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
           </el-button>
         </template>
       </el-table-column>
@@ -103,12 +113,24 @@
         <el-form-item label="权限code" prop="code">
           <el-input v-model="temp.code"></el-input>
         </el-form-item>
+        <el-form-item label="是否导航" prop="isnavigate">
+          <el-switch v-model="temp.isnavigate"></el-switch>
+        </el-form-item>
+        <el-form-item label="导航组件" prop="component">
+          <el-input v-model="temp.component"></el-input>
+        </el-form-item>
+        <el-form-item label="导航标题title" prop="title">
+          <el-input v-model="temp.title"></el-input>
+        </el-form-item>
+        <el-form-item label="导航路径path" prop="path">
+          <el-input v-model="temp.path"></el-input>
+        </el-form-item>
         <el-form-item label="顺序" prop="sort">
           <el-input v-model.number="temp.sort"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status"> 
           <el-select class="filter-item" style="width: 130px" v-model="temp.status">
-            <el-option v-for="item in userStatus" :key="item.key" :label="item.display_name" :value="item.key">
+            <el-option v-for="item in permType" :key="item.key" :label="item.display_name" :value="item.key">
             </el-option>
           </el-select>
         </el-form-item>
@@ -128,11 +150,17 @@ import {
   createPerm,
   updatePerm,
   updateStatus,
+  deletePerm,
   menuNode
 } from '@/api/permission'
 import waves from '@/directive/waves' // 水波纹指令
 import treeTable from '@/components/TreeTable'
 import config from '@/utils/config'
+
+const permType = [
+  { key: 0, display_name: '正常' },
+  { key: 1, display_name: '锁定' }
+]
 
 const typeOptions = [
   { key: 0, display_name: '菜单' },
@@ -164,7 +192,7 @@ export default {
         permname: null,
         status: 0
       },
-      userStatus: config.userStatus,
+      permType,
       typeOptions,
       dialogFormVisible: false,
       dialogStatus: '',
@@ -248,7 +276,11 @@ export default {
         code: null,
         icon: null,
         sort: null,
-        status: 0
+        status: 0,
+        component: null,
+        title: null,
+        path: null,
+        isnavigate: false
       }
     },
     getList() {
@@ -278,6 +310,23 @@ export default {
           type: 'success'
         })
         row.status = status
+      })
+    },
+    handleDelete(row) {
+      const id = row.id
+      const message = row.children && row.children.length > 0 ? '将同步删除子项是否确认删除?' : '是否确认删除?'
+      this.$confirm(message, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deletePerm(id).then(() => {
+          this.$notify({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.getList()
+        })
       })
     },
     resetTemp() {

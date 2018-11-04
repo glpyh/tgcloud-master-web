@@ -1,4 +1,7 @@
-import { asyncRouterMap, constantRouterMap } from '@/router'
+import { constantRouterMap } from '@/router'
+import { getRouterTree } from '@/api/permission'
+
+const _import = require('../../router/_import_' + process.env.NODE_ENV)
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
@@ -33,6 +36,16 @@ function filterAsyncRouter(asyncRouterMap, permissions) {
   return accessedRouters
 }
 
+function initComponent(asyncRouterMap) {
+  if (!asyncRouterMap || asyncRouterMap.length === 0) { return }
+  asyncRouterMap.forEach(element => {
+    if (element.component) {
+      element.component = _import(element.component)
+      initComponent(element.children)
+    }
+  })
+}
+
 const permission = {
   state: {
     routers: constantRouterMap,
@@ -46,12 +59,20 @@ const permission = {
   },
   actions: {
     GenerateRoutes({ commit }, data) {
-      return new Promise(resolve => {
-        const { permissions } = data
+      const { permissions } = data
+      return getRouterTree().then((res) => {
+        const asyncRouterMap = res.result
+        initComponent(asyncRouterMap)
         const accessedRouters = filterAsyncRouter(asyncRouterMap, permissions)
         commit('SET_ROUTERS', accessedRouters)
-        resolve()
       })
+
+      // return new Promise(resolve => {
+      //   const { permissions } = data
+      //   const accessedRouters = filterAsyncRouter(asyncRouterMap, permissions)
+      //   commit('SET_ROUTERS', accessedRouters)
+      //   resolve()
+      // })
     }
   }
 }
