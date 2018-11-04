@@ -6,33 +6,33 @@ const _import = require('../../router/_import_' + process.env.NODE_ENV)
  * @param roles
  * @param route
  */
-function hasPermission(permissions, route) {
-  if (route.meta && route.meta.perms) {
-    return true // permissions.some(permission => route.meta.perms.indexOf(permission) >= 0)
-  } else {
-    return true
-  }
-}
+// function hasPermission(permissions, route) {
+//   if (route.meta && route.meta.perms) {
+//     permissions.some(permission => route.meta.perms.indexOf(permission) >= 0)
+//   } else {
+//     return true
+//   }
+// }
 
 /**
  * 递归过滤异步路由表，返回符合用户角色权限的路由表
  * @param asyncRouterMap
  * @param roles
  */
-function filterAsyncRouter(asyncRouterMap, permissions) {
-  const accessedRouters = asyncRouterMap.filter(route => {
-    if (hasPermission(permissions, route)) {
-      if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, permissions)
+// function filterAsyncRouter(asyncRouterMap, permissions) {
+//   const accessedRouters = asyncRouterMap.filter(route => {
+//     if (hasPermission(permissions, route)) {
+//       if (route.children && route.children.length) {
+//         route.children = filterAsyncRouter(route.children, permissions)
 
-        return route.children.length > 0
-      }
-      return true
-    }
-    return false
-  })
-  return accessedRouters
-}
+//         return route.children.length > 0
+//       }
+//       return true
+//     }
+//     return false
+//   })
+//   return accessedRouters
+// }
 
 function initComponent(asyncRouterMap) {
   if (!asyncRouterMap || asyncRouterMap.length === 0) { return }
@@ -57,12 +57,11 @@ const permission = {
   },
   actions: {
     GenerateRoutes({ commit }, data) {
-      const permissions = data.permissions
       const asyncRouterMap = data.routers
       initComponent(asyncRouterMap)
-      const accessedRouters = filterAsyncRouter(asyncRouterMap, permissions)
-      commit('SET_ROUTERS', accessedRouters)
+      commit('SET_ROUTERS', asyncRouterMap)
 
+      // const permissions = data.permissions
       // return new Promise(resolve => {
       //   const { permissions } = data
       //   const accessedRouters = filterAsyncRouter(asyncRouterMap, permissions)
