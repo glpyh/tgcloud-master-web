@@ -1,3 +1,9 @@
 <template>
     <iframe src='http://admin.tgcloud.net:8761' id='show' width='100%' height="660px" frameborder=0 name='showEureka' ></iframe>
 </template>
+
+<script>
+export default {
+  name: '服务注册'
+}
+</script>

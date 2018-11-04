@@ -182,7 +182,7 @@ const typeValue = typeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'listPerm',
+  name: '权限列表',
   components: { treeTable },
   directives: {
     waves

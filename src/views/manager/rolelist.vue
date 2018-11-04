@@ -106,7 +106,7 @@ import waves from '@/directive/waves' // 水波纹指令
 import config from '@/utils/config'
 
 export default {
-  name: 'listRole',
+  name: '角色列表',
   directives: {
     waves
   },
