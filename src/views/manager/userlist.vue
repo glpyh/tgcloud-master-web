@@ -162,7 +162,7 @@ import { parseTime } from "@/utils";
 import config from "@/utils/config";
 
 export default {
-  name: "用户列表",
+  name: "用户管理",
   directives: {
     waves
   },

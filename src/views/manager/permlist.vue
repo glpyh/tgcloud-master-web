@@ -201,7 +201,7 @@ const typeValue = typeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: '权限列表',
+  name: '权限菜单管理',
   components: { treeTable },
   directives: {
     waves

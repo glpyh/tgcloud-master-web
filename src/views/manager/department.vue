@@ -98,7 +98,7 @@ import waves from '@/directive/waves' // 水波纹指令
 import config from '@/utils/config'
 
 export default {
-  name: '部门列表',
+  name: '部门管理',
   directives: {
     waves
   },
