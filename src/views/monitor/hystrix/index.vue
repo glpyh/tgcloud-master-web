@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <span>Hystrix Stream: http://zipkin.paascloud.net:7979/actuator/hystrix.stream</span>
-    <iframe src='http://hystrix.paascloud.net:8010/hystrix' id='show' width='100%' height="600px" frameborder=0 name='showHystrix' ></iframe>
+    <span>Hystrix Stream: http://zipkin.tgcloud.net:7979/actuator/hystrix.stream</span>
+    <iframe src='http://hystrix.tgcloud.net:8010/hystrix' id='show' width='100%' height="600px" frameborder=0 name='showHystrix' ></iframe>
   </div>
 </template>
 
