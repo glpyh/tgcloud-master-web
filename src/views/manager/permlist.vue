@@ -287,10 +287,10 @@ export default {
       callback()
     },
     validateCode(rule, value, callback) {
-      if ((this.temp.type === 1 || this.temp.type === 2) &&
-       (this.temp.code === '' || this.temp.code === null)) {
-        callback(new Error('请输入权限code'))
-      }
+      // if ((this.temp.type === 1 || this.temp.type === 2) &&
+      //  (this.temp.code === '' || this.temp.code === null)) {
+      //   callback(new Error('请输入权限code'))
+      // }
       callback()
     },
     initCreateUpdateTemp() {

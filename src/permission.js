@@ -36,12 +36,14 @@ router.beforeEach((to, from, next) => {
           })
         })
         .catch(error => {
+          if (error.response && error.response.status === 401) {
+            store.dispatch('FedLogOut').then(() => {
+              // Message.error('授权失效, 请重新登录')
+              window.location.href = process.env.PASSPORT_URL + '?redirectUrl=' + window.location.href
+              next()
+            })
+          }
           return Promise.reject(error)
-          // store.dispatch('FedLogOut').then(() => {
-          //   // Message.error('验证失败, 请重新登录')
-          //   // window.location.href = process.env.PASSPORT_URL + '?redirectUrl=' + window.location.href
-          //   next()
-          // })
         })
     } else {
       // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
