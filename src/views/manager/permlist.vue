@@ -16,7 +16,7 @@
      </div>
 
     <tree-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
-      style="width: 100%">
+      style="width: 100%" height="510">
       <el-table-column align="center" label="icon图标" >
         <template slot-scope="scope">
           <svg-icon v-bind:icon-class="`${scope.row.icon}`" />
