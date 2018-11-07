@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/uac/perms/',
+    url: '/uac/perms',
     method: 'get',
     params: query
   })
@@ -10,7 +10,7 @@ export function fetchList(query) {
 
 export function createPerm(data) {
   return request({
-    url: '/uac/perms/',
+    url: '/uac/perms',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function createPerm(data) {
 
 export function updatePerm(data) {
   return request({
-    url: '/uac/perms/',
+    url: '/uac/perms',
     method: 'put',
     data
   })
@@ -53,7 +53,7 @@ export function getRolePerms(roleId) {
 export function getAllPerms() {
   const query = { type: 0, status: 0 }
   return request({
-    url: '/uac/perms/',
+    url: '/uac/perms',
     method: 'get',
     params: query
   })

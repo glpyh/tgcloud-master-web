@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/uac/departments/',
+    url: '/uac/departments',
     method: 'get',
     params: query
   })
@@ -10,7 +10,7 @@ export function fetchList(query) {
 
 export function createDepartment(data) {
   return request({
-    url: '/uac/departments/',
+    url: '/uac/departments',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function createDepartment(data) {
 
 export function updateDepartment(data) {
   return request({
-    url: '/uac/departments/',
+    url: '/uac/departments',
     method: 'put',
     data
   })

@@ -32,6 +32,16 @@
           <span>{{scope.row.type | typeText}}</span>
         </template>
       </el-table-column>
+      <el-table-column align="center" label="是否导航" >
+        <template slot-scope="scope">
+          <span>{{scope.row.isnavigate?'是':'否'}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="是否插件模式" width="120px">
+        <template slot-scope="scope">
+          <span>{{scope.row.isplugin?'是':'否'}}</span>
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="请求url" width="210px">
         <template slot-scope="scope">
           <span>{{scope.row.url}}</span>
@@ -50,11 +60,6 @@
       <el-table-column align="center" label="描述" width="200px">
         <template slot-scope="scope">
           <span>{{scope.row.description}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="是否导航" >
-        <template slot-scope="scope">
-          <span>{{scope.row.isnavigate?'是':'否'}}</span>
         </template>
       </el-table-column>
       <el-table-column  align="center" label="导航标题title" width="150px">
@@ -134,6 +139,9 @@
         </el-form-item>
         <el-form-item label="是否导航" prop="isnavigate">
           <el-switch v-model="temp.isnavigate"></el-switch>
+        </el-form-item>
+        <el-form-item label="是否插件模式" prop="isplugin">
+          <el-switch v-model="temp.isplugin"></el-switch>
         </el-form-item>
         <el-form-item label="导航组件" prop="component">
           <el-input v-model="temp.component"></el-input>
@@ -309,7 +317,8 @@ export default {
         component: null,
         title: null,
         path: null,
-        isnavigate: false
+        isnavigate: false,
+        isplugin: false
       }
     },
     getList() {

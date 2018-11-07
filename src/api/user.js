@@ -9,7 +9,7 @@ export function getUserInfo() {
 
 export function fetchList(query) {
   return request({
-    url: '/uac/users/',
+    url: '/uac/users',
     method: 'get',
     params: query
   })
@@ -17,7 +17,7 @@ export function fetchList(query) {
 
 export function createUser(data) {
   return request({
-    url: '/uac/users/',
+    url: '/uac/users',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function createUser(data) {
 
 export function updateUser(data) {
   return request({
-    url: '/uac/users/',
+    url: '/uac/users',
     method: 'put',
     data
   })

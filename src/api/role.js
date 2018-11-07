@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/uac/roles/',
+    url: '/uac/roles',
     method: 'get',
     params: query
   })
@@ -10,7 +10,7 @@ export function fetchList(query) {
 
 export function createRole(data) {
   return request({
-    url: '/uac/roles/',
+    url: '/uac/roles',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function createRole(data) {
 
 export function updateRole(data) {
   return request({
-    url: '/uac/roles/',
+    url: '/uac/roles',
     method: 'put',
     data
   })
@@ -33,7 +33,7 @@ export function updateStatus(data) {
 
 export function getAllRoles() {
   return request({
-    url: '/uac/roles/',
+    url: '/uac/roles',
     mounted: 'get',
     params: { status: 0 }
   })
