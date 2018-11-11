@@ -69,6 +69,8 @@ service.interceptors.response.use(
       })
     } else if (error.response && error.response.status && error.response.status === 404) {
       message = '请求资源离家出走了,等一会就回来'
+    } else if (error.response && error.response.status === 429) {
+      message = '请求太频繁了,先休息会'
     } else if (
       error.response &&
       error.response.data &&
