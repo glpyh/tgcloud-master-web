@@ -104,7 +104,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="部门"> 
-          <el-input v-model="temp.deptname" @focus="innerVisible=true"></el-input>
+          <el-input v-model="temp.deptname" @focus="deptFocusHander"></el-input>
         </el-form-item>
          <el-form-item label="手机号">
           <el-input v-model="temp.cellphone"></el-input>
@@ -125,7 +125,7 @@
         <el-button v-else type="primary" @click="updateData">保存</el-button>
       </div>
       <el-dialog width="30%" title="部门选择" :visible.sync="innerVisible" append-to-body> 
-        <el-tree :default-expand-all="true" :expand-on-click-node="false" :highlight-current="true" ref="tree" :data="departments" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+        <el-tree node-key="id" :default-expand-all="true" :expand-on-click-node="false" :highlight-current="true" ref="tree" :data="departments" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
       </el-dialog>
     </el-dialog>
 
@@ -383,6 +383,13 @@ export default {
       this.temp.deptname = data.deptname
       this.temp.deptid = data.id
       this.innerVisible = false
+    },
+    deptFocusHander: function() {
+      this.innerVisible=true;
+      if(this.$refs.tree == null) {
+        return
+      }
+      this.$refs.tree.setCurrentKey(this.temp.deptid)
     }
   }
 };
