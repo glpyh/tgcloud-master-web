@@ -36,8 +36,8 @@
 </template>
 
 <style scoped>
-.el_card{
-  box-shadow: none
+.el-card{
+  box-shadow: 0 0px 0px 0 rgba(0,0,0,.1);
 }
 .el-dialog__body{
   padding: 1px 20px；
@@ -85,8 +85,7 @@ export default {
           { required: true, message: '描述必填', trigger: 'change' }
         ],
         sort: [
-          { required: true, message: '顺序必填', trigger: 'change' },
-          { type: 'number', message: '顺必须为数字值' }
+          { required: true, message: '顺序必填', trigger: 'change' }
         ]
       },
       curDepartName: null
@@ -133,6 +132,7 @@ export default {
             type: 'success'
           })
 
+          this.$refs['dataForm'].resetFields()
           this.getList()// 重新加载列表
           this.resetTemp()
         })
@@ -159,6 +159,7 @@ export default {
           createDepartment(this.temp).then(() => {
             this.getList()// 重新加载列表
             this.inputEnabled = false
+            this.$refs['dataForm'].resetFields()
             this.$notify({
               title: '成功',
               message: '创建成功',
@@ -195,6 +196,7 @@ export default {
           updateDepartment(tempData).then(() => {
             this.getList()// 重新加载列表
             this.inputEnabled = false
+            this.$refs['dataForm'].resetFields()
             this.$notify({
               title: '成功',
               message: '更新成功',
