@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/uac/departments',
+    url: '/uac/departments/tree',
     method: 'get',
     params: query
   })
@@ -24,9 +24,9 @@ export function updateDepartment(data) {
   })
 }
 
-export function updateStatus(data) {
+export function deleteDepartment(id) {
   return request({
-    url: `/uac/departments/${data.id}/status/${data.status}`,
-    method: 'put'
+    url: `/uac/departments/${id}`,
+    method: 'delete'
   })
 }
