@@ -45,9 +45,9 @@
           <span>{{scope.row.address}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="创建日期">
+      <el-table-column  align="center" label="所属部门">
         <template slot-scope="scope">
-          <span>{{scope.row.createdTime}}</span>
+          <span>{{scope.row.deptname}}</span>
         </template>
       </el-table-column>
       <el-table-column  align="center" label="创建人">
@@ -104,14 +104,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="部门"> 
-          <el-select v-model="temp.deptid" placeholder="请选择">
-            <el-option
-              v-for="item in departments"
-              :key="item.id"
-              :label="item.deptname"
-              :value="item.id">
-            </el-option>
-          </el-select>
+          <el-input v-model="temp.deptname" @focus="innerVisible=true"></el-input>
         </el-form-item>
          <el-form-item label="手机号">
           <el-input v-model="temp.cellphone"></el-input>
@@ -131,6 +124,9 @@
         <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">创建</el-button>
         <el-button v-else type="primary" @click="updateData">保存</el-button>
       </div>
+      <el-dialog width="30%" title="部门选择" :visible.sync="innerVisible" append-to-body> 
+        <el-tree :default-expand-all="true" :expand-on-click-node="false" :highlight-current="true" ref="tree" :data="departments" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+      </el-dialog>
     </el-dialog>
 
     <el-dialog title="角色设置" :visible.sync="dialogTransferVisible" width="570px">
@@ -186,6 +182,11 @@ export default {
       userRoles: [],
       roles: [],
       departments: [],
+      defaultProps: {
+        children: 'children',
+        label: 'deptname'
+      },
+      innerVisible: false,
       curUserId: undefined,
       dialogStatus: "",
       textMap: {
@@ -245,6 +246,7 @@ export default {
         password: null,
         nickname: null,
         deptid: null,
+        deptname: null,
         gender: null,
         cellphone: null,
         identitycard: null,
@@ -265,7 +267,7 @@ export default {
       if (this.departments.length > 0) return;
       let query = { status: 0 };
       departFetchList(query).then(response => {
-        this.departments = response.result.list;
+        this.departments = response.result;
       });
     },
     handleFilter() {
@@ -376,6 +378,11 @@ export default {
           });
         }
       );
+    },
+    handleNodeClick(data) {
+      this.temp.deptname = data.deptname
+      this.temp.deptid = data.id
+      this.innerVisible = false
     }
   }
 };
