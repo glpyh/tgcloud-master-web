@@ -1,13 +1,13 @@
 <template>
   <div class="app-container calendar-list-container">
     <div class="filter-container">
-      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" placeholder="权限名" v-model="listQuery.permname">
+      <el-input @keyup.enter.native="handleFilter" clearable style="width: 200px;" class="filter-item" placeholder="权限名" v-model="listQuery.permname">
       </el-input>
-      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.status" placeholder="状态">
+      <el-select class="filter-item" style="width: 130px" v-model="listQuery.status" placeholder="状态">
         <el-option v-for="item in  permType" :key="item.key" :label="item.display_name" :value="item.key">
         </el-option>
       </el-select>
-      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" placeholder="类型">
+      <el-select class="filter-item" style="width: 130px" v-model="listQuery.type" placeholder="类型">
         <el-option v-for="item in  typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
         </el-option>
       </el-select>
