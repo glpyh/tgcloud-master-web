@@ -144,7 +144,7 @@
 
 <style scoped>
 .el-dialog__body {
-  padding: 1px 20px；;
+  padding: 1px 20px;
 }
 </style>
 
