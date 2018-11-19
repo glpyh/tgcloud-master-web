@@ -103,64 +103,104 @@
     </div>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" @open="onDialogOpen">
-      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='width: 400px; margin-left:50px;'>
-        <el-form-item label="权限名" prop="permname">
-          <el-input v-model="temp.permname"></el-input>
-        </el-form-item>
-        <el-form-item label="描述" prop="description">
-          <el-input v-model="temp.description"></el-input>
-        </el-form-item>
-        <el-form-item v-if="dialogStatus !== 'topCreate'" label="父节点"> 
-          <el-select class="filter-item" style="width: 130px" v-model="temp.parentid">
-            <el-option v-for="item in typeData" :key="item.id" :label="item.permname" :value="item.id">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="类别" prop="type">
-          <el-select class="filter-item" style="width: 130px" v-model="temp.type">
-            <el-option v-for="item in typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="icon图标" prop="icon">
-          <el-input v-model="temp.icon"></el-input>
-        </el-form-item>
-        <el-form-item label="请求url" prop="url">
-          <el-input v-model="temp.url"></el-input>
-        </el-form-item>
-        <el-form-item label="请求action" prop="action">
-          <el-select class="filter-item" style="width: 130px" v-model="temp.action">
-            <el-option v-for="item in actionOptions" :key="item.key" :label="item.display_name" :value="item.key">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="权限code" prop="code">
-          <el-input v-model="temp.code"></el-input>
-        </el-form-item>
-        <el-form-item label="是否导航" prop="isnavigate">
-          <el-switch v-model="temp.isnavigate"></el-switch>
-        </el-form-item>
-        <el-form-item label="是否插件模式" prop="isplugin">
-          <el-switch v-model="temp.isplugin"></el-switch>
-        </el-form-item>
-        <el-form-item label="导航组件" prop="component">
-          <el-input v-model="temp.component"></el-input>
-        </el-form-item>
-        <el-form-item label="导航标题title" prop="title">
-          <el-input v-model="temp.title"></el-input>
-        </el-form-item>
-        <el-form-item label="导航路径path" prop="path">
-          <el-input v-model="temp.path"></el-input>
-        </el-form-item>
-        <el-form-item label="顺序" prop="sort">
-          <el-input v-model.number="temp.sort"></el-input>
-        </el-form-item>
-        <el-form-item label="状态" prop="status"> 
-          <el-select class="filter-item" style="width: 130px" v-model="temp.status">
-            <el-option v-for="item in permType" :key="item.key" :label="item.display_name" :value="item.key">
-            </el-option>
-          </el-select>
-        </el-form-item>
+      <el-form :label-position="right" :rules="rules" ref="dataForm" :model="temp" label-width="100px" style='margin:0 15px;'>
+        <el-row :gutter="10">
+          <el-col :span="24">
+            <el-form-item label="权限名" prop="permname">
+              <el-input v-model="temp.permname"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-form-item label="请求url" prop="url">
+            <el-input v-model="temp.url"></el-input>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="权限code" prop="code">
+            <el-input v-model="temp.code"></el-input>
+          </el-form-item>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="类别" prop="type">
+              <el-select class="filter-item" v-model="temp.type">
+                <el-option v-for="item in typeOptions" :key="item.key" :label="item.display_name" :value="item.key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="请求action" prop="action">
+              <el-select class="filter-item" v-model="temp.action">
+                <el-option v-for="item in actionOptions" :key="item.key" :label="item.display_name" :value="item.key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="icon图标" prop="icon">
+              <el-input v-model="temp.icon"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="10">
+            <el-form-item v-if="dialogStatus !== 'topCreate'" label="父节点"> 
+              <el-select class="filter-item" v-model="temp.parentid">
+                <el-option v-for="item in typeData" :key="item.id" :label="item.permname" :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item> 
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="是否导航" prop="isnavigate">
+              <el-switch v-model="temp.isnavigate"></el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="是否插件模式" prop="isplugin">
+              <el-switch v-model="temp.isplugin"></el-switch>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item label="导航组件" prop="component">
+              <el-input v-model="temp.component"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="导航路径path" prop="path">
+              <el-input v-model="temp.path"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="10">
+            <el-form-item label="导航标题title" prop="title">
+              <el-input v-model="temp.title"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="状态" prop="status"> 
+              <el-select class="filter-item" v-model="temp.status">
+                <el-option v-for="item in permType" :key="item.key" :label="item.display_name" :value="item.key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="顺序" prop="sort">
+              <el-input v-model.number="temp.sort"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-form-item label="描述" prop="description">
+            <el-input type="textarea" :rows="2" v-model="temp.description"></el-input>
+          </el-form-item>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
@@ -243,9 +283,6 @@ export default {
       rules: {
         permname: [
           { required: true, message: '权限名必填', trigger: 'change' }
-        ],
-        description: [
-          { required: true, message: '描述必填', trigger: 'change' }
         ],
         type: [
           { required: true, message: '类型必填', trigger: 'change' }
