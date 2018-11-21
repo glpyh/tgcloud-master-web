@@ -43,14 +43,14 @@
           <span>{{scope.row.isRoute?'是':'否'}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="路由前缀">
-        <template slot-scope="scope">
-          <span>{{scope.row.routePrefix}}</span>
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="路由别名" width="120">
         <template slot-scope="scope">
           <span>{{scope.row.routeName}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="路由前缀">
+        <template slot-scope="scope">
+          <span>{{scope.row.routePrefix}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="路由基础地址" width="120">
