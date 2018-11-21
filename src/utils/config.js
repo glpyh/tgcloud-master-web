@@ -40,6 +40,18 @@ const userStatusValue = userStatus.reduce((acc, cur) => {
   return acc
 }, {})
 
+// 状态
+const commonStatus = [
+  { key: 0, display_name: '正常' },
+  { key: 1, display_name: '锁定' }
+]
+
+// arr to obj
+const commonStatusValue = commonStatus.reduce((acc, cur) => {
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
+
 const genderEnum = [
   { key: 0, display_name: '女' },
   { key: 1, display_name: '男' }
@@ -58,5 +70,7 @@ export default
   userStatus,
   userStatusValue,
   genderEnum,
-  userGenderValue
+  userGenderValue,
+  commonStatus,
+  commonStatusValue
 }

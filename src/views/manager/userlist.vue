@@ -5,7 +5,7 @@
       </el-input>
       <el-input @keyup.enter.native="handleFilter" clearable style="width: 200px;" class="filter-item" placeholder="昵称" v-model="listQuery.nickname">
       </el-input>
-      <el-select class="filter-item" style="width: 130px" v-model="listQuery.status" placeholder="状态">
+      <el-select class="filter-item" clearable style="width: 130px" v-model="listQuery.status" placeholder="状态">
         <el-option v-for="item in  userStatus" :key="item.key" :label="item.display_name" :value="item.key">
         </el-option>
       </el-select>
@@ -171,9 +171,9 @@ export default {
       listQuery: {
         pageNum: 1,
         pageSize: 20,
-        username: undefined,
-        nickname: undefined,
-        status: undefined
+        username: null,
+        nickname: null,
+        status: null
       },
       userStatus: config.userStatus,
       genderEnum: config.genderEnum,
