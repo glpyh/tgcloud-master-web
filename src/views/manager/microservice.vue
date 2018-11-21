@@ -63,7 +63,7 @@
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status | statusText}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="服务基础地址" width="200">
+      <el-table-column align="center" label="路由基础地址" width="120">
         <template slot-scope="scope">
           <span>{{scope.row.baseUrl}}</span>
         </template>
@@ -108,7 +108,7 @@
         </el-row>
         <el-row :gutter="10">
           <el-col :span="12">
-            <el-form-item label="服务基础地址" prop="baseUrl">
+            <el-form-item label="路由基础地址" prop="baseUrl">
               <el-input v-model="temp.baseUrl"></el-input>
             </el-form-item>
           </el-col>
