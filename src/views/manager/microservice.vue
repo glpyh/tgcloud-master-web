@@ -33,16 +33,6 @@
           <span>{{scope.row.clientId}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="路由前缀">
-        <template slot-scope="scope">
-          <span>{{scope.row.routePrefix}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="路由别名" width="120">
-        <template slot-scope="scope">
-          <span>{{scope.row.routeName}}</span>
-        </template>
-      </el-table-column>
       <el-table-column  align="center" label="是否授权">
         <template slot-scope="scope">
           <span>{{scope.row.isAuth?'是':'否'}}</span>
@@ -53,6 +43,21 @@
           <span>{{scope.row.isRoute?'是':'否'}}</span>
         </template>
       </el-table-column>
+      <el-table-column  align="center" label="路由前缀">
+        <template slot-scope="scope">
+          <span>{{scope.row.routePrefix}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="路由别名" width="120">
+        <template slot-scope="scope">
+          <span>{{scope.row.routeName}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="路由基础地址" width="120">
+        <template slot-scope="scope">
+          <span>{{scope.row.baseUrl}}</span>
+        </template>
+      </el-table-column>
       <el-table-column  align="center" label="自/异系统" width="100">
         <template slot-scope="scope">
           <span>{{scope.row.type | serviceText}}</span>
@@ -61,11 +66,6 @@
       <el-table-column class-name="status-col" label="状态" width="70px">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status | statusText}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="路由基础地址" width="120">
-        <template slot-scope="scope">
-          <span>{{scope.row.baseUrl}}</span>
         </template>
       </el-table-column>
       <el-table-column  align="center" label="联系人">
