@@ -28,7 +28,12 @@
           <span>{{scope.row.serviceName}}</span>
         </template>
       </el-table-column>
-      <el-table-column  align="center" label="服务标识" width="200">
+      <el-table-column  align="center" label="服务应用名" width="200">
+        <template slot-scope="scope">
+          <span>{{scope.row.serviceCode}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column  align="center" label="服务ID" width="200">
         <template slot-scope="scope">
           <span>{{scope.row.clientId}}</span>
         </template>
@@ -101,15 +106,22 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="服务标识" prop="clientId">
-              <el-input v-model="temp.clientId"></el-input>
+            <el-form-item label="服务应用名" prop="serviceCode">
+              <el-input v-model="temp.serviceCode" placeholder="服务eureka中注册应用名称"></el-input>
+            </el-form-item>
+          </el-col> 
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="24">
+            <el-form-item label="路由基础地址" prop="baseUrl">
+              <el-input v-model="temp.baseUrl"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="10">
           <el-col :span="12">
-            <el-form-item label="路由基础地址" prop="baseUrl">
-              <el-input v-model="temp.baseUrl"></el-input>
+            <el-form-item label="服务ID" prop="clientId">
+              <el-input v-model="temp.clientId"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -280,6 +292,7 @@ export default {
       return {
         id: null,
         serviceName: null,
+        serviceCode: null,
         routeName: null,
         routePrefix: null,
         clientId: null,
