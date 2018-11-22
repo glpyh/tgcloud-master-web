@@ -9,6 +9,7 @@
       </el-select>
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
       <el-button v-has-add:role class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
+      <el-button v-has-add:role class="filter-item" style="margin-left: 10px;" @click="handleRefreshRoutes" type="primary" icon="el-icon-upload">刷新路由</el-button>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
@@ -220,7 +221,8 @@ import {
   fetchList,
   createMicroservice,
   updateMicroservice,
-  deleteMicroservice
+  deleteMicroservice,
+  refreshRoutes
 } from '@/api/microservice'
 import waves from '@/directive/waves' // 水波纹指令
 import config from '@/utils/config'
@@ -399,6 +401,18 @@ export default {
             })
           })
         }
+      })
+    },
+    handleRefreshRoutes() {
+      refreshRoutes().then(() => {
+        this.getList()// 重新加载列表
+        this.dialogFormVisible = false
+        this.$notify({
+          title: '成功',
+          message: '以及发送刷新路由消息',
+          type: 'success',
+          duration: 2000
+        })
       })
     }
   }

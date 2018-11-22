@@ -30,3 +30,10 @@ export function deleteMicroservice(id) {
     method: 'delete'
   })
 }
+
+export function refreshRoutes() {
+  return request({
+    url: '/dmc/microservices/reflesh/routes',
+    method: 'put'
+  })
+}
