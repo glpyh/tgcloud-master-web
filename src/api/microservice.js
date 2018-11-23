@@ -31,6 +31,13 @@ export function deleteMicroservice(id) {
   })
 }
 
+export function updateStatus(data) {
+  return request({
+    url: `/dmc/microservices/${data.id}/status/${data.status}`,
+    method: 'put'
+  })
+}
+
 export function refreshRoutes() {
   return request({
     url: '/dmc/microservices/reflesh/routes',

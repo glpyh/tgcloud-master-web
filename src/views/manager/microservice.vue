@@ -84,10 +84,14 @@
           <span>{{scope.row.mobile}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" fixed="right" label="操作" class-name="small-padding fixed-width" width="200px">
+      <el-table-column align="center" fixed="right" label="操作" class-name="small-padding fixed-width" width="250px">
         <template slot-scope="scope">
           <el-button v-has-update:role type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button v-has-status:role size="mini" type="success" @click="handleDelete(scope.row)">删除</el-button>
+          <el-button v-has-status:role v-show="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
+          </el-button>
+          <el-button v-has-status:role v-show="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -222,6 +226,7 @@ import {
   createMicroservice,
   updateMicroservice,
   deleteMicroservice,
+  updateStatus,
   refreshRoutes
 } from '@/api/microservice'
 import waves from '@/directive/waves' // 水波纹指令
@@ -345,6 +350,23 @@ export default {
             message: '操作成功',
             type: 'success'
           })
+        })
+      })
+    },
+    handleModifyStatus(row, status) {
+      const action = status === '0' ? '开启' : '锁定'
+      this.$confirm(`是否确定${action}该微服务, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const id = row.id
+        updateStatus({ id, status }).then(() => {
+          this.$notify({
+            message: '操作成功',
+            type: 'success'
+          })
+          row.status = status
         })
       })
     },
