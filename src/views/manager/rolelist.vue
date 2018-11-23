@@ -12,7 +12,7 @@
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
-      style="width: 100%">
+      style="width: 100%" max-height="700">
       <el-table-column align="center" label="角色名" >
         <template slot-scope="scope">
           <span>{{scope.row.rolename}}</span>
