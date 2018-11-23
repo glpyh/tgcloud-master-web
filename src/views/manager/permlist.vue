@@ -22,7 +22,7 @@
           <svg-icon v-bind:icon-class="`${scope.row.icon}`" />
         </template>
       </el-table-column>
-      <el-table-column align="center" label="权限名" width="120px">
+      <el-table-column align="center" label="权限名" width="160px">
         <template slot-scope="scope">
           <span>{{scope.row.permname}}</span>
         </template>

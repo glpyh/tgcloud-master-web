@@ -81,43 +81,71 @@
     </div>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='width: 400px; margin-left:50px;'>
-        <el-form-item v-if="dialogStatus=='create'" label="用户名" prop="username">
-          <el-input v-model="temp.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" v-if="dialogStatus=='create'" prop="password">
-          <el-input v-model="temp.password"></el-input>
-        </el-form-item>
-        <el-form-item label="昵称" prop="nickname">
-          <el-input v-model="temp.nickname"></el-input>
-        </el-form-item>
-         <el-form-item label="状态" prop="status"> 
-          <el-select class="filter-item" style="width: 130px" v-model="temp.status">
-            <el-option v-for="item in userStatus" :key="item.key" :label="item.display_name" :value="item.key">
-            </el-option>
-          </el-select>
-         </el-form-item>
-        <el-form-item label="性别"> 
-          <el-select class="filter-item" style="width: 130px" v-model="temp.gender">
-            <el-option v-for="item in genderEnum" :key="item.key" :label="item.display_name" :value="item.key">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="部门"> 
-          <el-input v-model="temp.deptname" @focus="deptFocusHander"></el-input>
-        </el-form-item>
-         <el-form-item label="手机号">
-          <el-input v-model="temp.cellphone"></el-input>
-        </el-form-item>
-         <el-form-item label="身份证">
-          <el-input v-model="temp.identitycard"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="temp.email"></el-input>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="temp.address"></el-input>
-        </el-form-item>
+      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="100px" style='margin:0 15px;'>
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="用户名" prop="username">
+              <el-input v-model="temp.username"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="密码" v-if="dialogStatus=='create'" prop="password">
+              <el-input v-model="temp.password"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="昵称" prop="nickname">
+              <el-input v-model="temp.nickname"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="状态" prop="status"> 
+              <el-select class="filter-item" style="width: 130px" v-model="temp.status">
+                <el-option v-for="item in userStatus" :key="item.key" :label="item.display_name" :value="item.key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="性别"> 
+              <el-select class="filter-item" style="width: 130px" v-model="temp.gender">
+                <el-option v-for="item in genderEnum" :key="item.key" :label="item.display_name" :value="item.key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="部门"> 
+              <el-input v-model="temp.deptname" @focus="deptFocusHander"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="手机号">
+              <el-input v-model="temp.cellphone"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="身份证">
+              <el-input v-model="temp.identitycard"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="temp.email"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="24">
+            <el-form-item label="地址">
+              <el-input type="textarea" :rows="2"  v-model="temp.address"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
