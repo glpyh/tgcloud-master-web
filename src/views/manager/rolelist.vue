@@ -8,7 +8,7 @@
         </el-option>
       </el-select>
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
-      <el-button v-has-add:role class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
+      <el-button v-has-add:uac:roles class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
@@ -40,13 +40,13 @@
       </el-table-column>
       <el-table-column align="center" label="操作" class-name="small-padding fixed-width" width="300px">
         <template slot-scope="scope">
-          <el-button v-has-perm:role:permissions type="primary" size="mini" @click="handleOpenPermDialog(scope.row)">权限</el-button>
-          <el-button v-has-update:role v-show="scope.row.status=='0'" type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button v-has-status:role v-show="scope.row.status!='-1'" size="mini" type="success" @click="handleModifyStatus(scope.row,'-1')">删除
+          <el-button v-has-perm:uac:roles:perms:bind type="primary" size="mini" @click="handleOpenPermDialog(scope.row)">权限</el-button>
+          <el-button v-has-update:uac:roles v-show="scope.row.status=='0'" type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+          <el-button v-has-status:uac:roles v-show="scope.row.status!='-1'" size="mini" type="success" @click="handleModifyStatus(scope.row,'-1')">删除
           </el-button>
-          <el-button v-has-status:role v-show="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
+          <el-button v-has-status:uac:roles v-show="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
           </el-button>
-          <el-button v-has-status:role v-show="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
+          <el-button v-has-status:uac:roles v-show="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
           </el-button>
         </template>
       </el-table-column>

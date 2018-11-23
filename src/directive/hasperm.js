@@ -5,7 +5,7 @@ const hasPermission = (el, perm) => {
   // 如果登录用户没有拥有指定权限则不显示
   if (!permissions.some(permission => perm.indexOf(permission) >= 0)) {
     // 删除自己
-    // el.parentNode.removeChild(el)
+    el.parentNode.removeChild(el)
   }
 }
 
