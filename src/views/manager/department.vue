@@ -1,9 +1,9 @@
 <template>
   <div class="app-container calendar-list-container">
     <div class="filter-container">
-      <el-button v-has-add:uac:departments class="filter-item" @click="handleCreate" type="primary">添加</el-button>
-      <el-button v-has-update:uac:departments class="filter-item" type="primary" @click="handleUpdate()">编辑</el-button>
-      <el-button v-has-status:uac:departments class="filter-item" type="success" @click="handleDelete()">删除</el-button>
+      <el-button v-has-add:uac_departments class="filter-item" @click="handleCreate" type="primary">添加</el-button>
+      <el-button v-has-update:uac_departments class="filter-item" type="primary" @click="handleUpdate()">编辑</el-button>
+      <el-button v-has-status:uac_departments class="filter-item" type="success" @click="handleDelete()">删除</el-button>
     </div>
 
     <el-row>

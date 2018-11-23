@@ -8,8 +8,8 @@
         </el-option>
       </el-select>
       <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
-      <el-button v-has-add:dmc:microservices class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
-      <el-button v-has-perm:dmc:microservices:reflesh class="filter-item" style="margin-left: 10px;" @click="handleRefreshRoutes" type="primary" icon="el-icon-upload">刷新路由</el-button>
+      <el-button v-has-add:dmc_microservices class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">添加</el-button>
+      <el-button v-has-perm:dmc_microservices_reflesh class="filter-item" style="margin-left: 10px;" @click="handleRefreshRoutes" type="primary" icon="el-icon-upload">刷新路由</el-button>
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
@@ -86,11 +86,11 @@
       </el-table-column>
       <el-table-column align="center" fixed="right" label="操作" class-name="small-padding fixed-width" width="250px">
         <template slot-scope="scope">
-          <el-button v-has-update:dmc:microservices type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button v-has-delete:dmc:microservices size="mini" type="success" @click="handleDelete(scope.row)">删除</el-button>
-          <el-button v-has-status:dmc:microservices v-show="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
+          <el-button v-has-update:dmc_microservices type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+          <el-button v-has-delete:dmc_microservices size="mini" type="success" @click="handleDelete(scope.row)">删除</el-button>
+          <el-button v-has-status:dmc_microservices v-show="scope.row.status!='0'" size="mini" @click="handleModifyStatus(scope.row,'0')">正常
           </el-button>
-          <el-button v-has-status:dmc:microservices v-show="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
+          <el-button v-has-status:dmc_microservices v-show="scope.row.status!='1'" size="mini" type="danger" @click="handleModifyStatus(scope.row,'1')">锁定
           </el-button>
         </template>
       </el-table-column>

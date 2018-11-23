@@ -20,35 +20,35 @@ export default (Vue) => {
   Vue.directive('has-add', {
     bind: function(el, binding, vnode) {
       const perm = binding.arg
-      hasPermission(el, `${perm}:add`)
+      hasPermission(el, `${perm}_add`)
     }
   })
 
   Vue.directive('has-update', {
     bind: function(el, binding, vnode) {
       const perm = binding.arg
-      hasPermission(el, `${perm}:update`)
+      hasPermission(el, `${perm}_update`)
     }
   })
 
   Vue.directive('has-delete', {
     bind: function(el, binding, vnode) {
       const perm = binding.arg
-      hasPermission(el, `${perm}:delete`)
+      hasPermission(el, `${perm}_delete`)
     }
   })
 
   Vue.directive('has-view', {
     bind: function(el, binding, vnode) {
       const perm = binding.arg
-      hasPermission(el, `${perm}:view`)
+      hasPermission(el, `${perm}_view`)
     }
   })
 
   Vue.directive('has-status', {
     bind: function(el, binding, vnode) {
       const perm = binding.arg
-      hasPermission(el, `${perm}:status`)
+      hasPermission(el, `${perm}_status`)
     }
   })
 }
