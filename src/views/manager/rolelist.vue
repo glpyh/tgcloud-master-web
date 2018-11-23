@@ -12,7 +12,7 @@
     </div>
 
     <el-table :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="努力加载中" border fit highlight-current-row
-      style="width: 100%" height="510">
+      style="width: 100%">
       <el-table-column align="center" label="角色名" >
         <template slot-scope="scope">
           <span>{{scope.row.rolename}}</span>
@@ -81,7 +81,7 @@
     </el-dialog>
 
     <el-dialog title="权限设置" :visible.sync="dialogTreeVisible" width="50%">
-      <el-tree ref="permTree" show-checkbox highlight-current="true" default-expand-all="true" 
+      <el-tree ref="permTree" show-checkbox highlight-current="true"
               :render-content="renderContent"
               :props="{ key: 'id', label: 'permname' }"
               node-key="id" :data="Permissions"></el-tree>
