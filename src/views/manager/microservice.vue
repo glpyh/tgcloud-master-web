@@ -39,6 +39,11 @@
           <span>{{scope.row.clientId}}</span>
         </template>
       </el-table-column>
+      <el-table-column  align="center" label="服务密钥" width="200">
+        <template slot-scope="scope">
+          <span>{{scope.row.clientSecret}}</span>
+        </template>
+      </el-table-column>
       <el-table-column  align="center" label="是否授权">
         <template slot-scope="scope">
           <span>{{scope.row.isAuth?'是':'否'}}</span>
