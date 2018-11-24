@@ -13,6 +13,9 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="异常信息">
+              <span>{{ props.row.exceptionMessage }}</span>
+            </el-form-item>
             <el-form-item label="异常堆栈信息">
               <span>{{ props.row.exceptionStack }}</span>
             </el-form-item>
@@ -25,7 +28,7 @@
           <span>{{scope.row.createTime}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="系统应用名" >
+      <el-table-column align="center" label="服务应用名" >
         <template slot-scope="scope">
           <span>{{scope.row.applicationName}}</span>
         </template>
@@ -33,11 +36,6 @@
       <el-table-column align="center" label="异常类型" >
         <template slot-scope="scope">
           <span>{{scope.row.exceptionSimpleName}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="异常信息" >
-        <template slot-scope="scope">
-          <span>{{scope.row.exceptionMessage}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="异常原因" >
