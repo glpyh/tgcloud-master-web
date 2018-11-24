@@ -122,13 +122,6 @@
           </el-col> 
         </el-row>
         <el-row :gutter="10">
-          <el-col :span="24">
-            <el-form-item label="路由基础地址" prop="baseUrl">
-              <el-input v-model="temp.baseUrl"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="10">
           <el-col :span="12">
             <el-form-item label="服务ID" prop="clientId">
               <el-input v-model="temp.clientId"></el-input>
@@ -149,6 +142,13 @@
           <el-col :span="12">
             <el-form-item label="路由前缀" prop="routePrefix">
               <el-input v-model="temp.routePrefix"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="24">
+            <el-form-item label="路由基础地址" prop="baseUrl">
+              <el-input v-model="temp.baseUrl"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
