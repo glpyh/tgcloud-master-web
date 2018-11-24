@@ -81,8 +81,9 @@
     </el-dialog>
 
     <el-dialog title="权限设置" :visible.sync="dialogTreeVisible" width="50%">
-      <el-tree ref="permTree" show-checkbox highlight-current="true"
-              :render-content="renderContent"
+      <el-input  placeholder="输入关键字进行过滤" v-model="filterText" style="margin-bottom:12px;"></el-input>
+      <el-tree ref="permTree" show-checkbox :highlight-current="true" :filter-node-method="filterNode"
+              :render-content="renderContent" class="filter-tree"
               :props="{ key: 'id', label: 'permname' }"
               node-key="id" :data="Permissions"></el-tree>
       <div slot="footer" class="dialog-footer">
@@ -125,6 +126,7 @@ export default {
       userStatus: config.userStatus,
       dialogFormVisible: false,
       dialogStatus: '',
+      filterText: '',
       textMap: {
         update: '编辑',
         create: '添加'
@@ -299,6 +301,15 @@ export default {
             <span class='treenode'>{data.code}</span>
           </span>
         </span>)
+    },
+    filterNode(value, data) {
+      if (!value) return true
+      return data.permname.indexOf(value) !== -1
+    }
+  },
+  watch: {
+    filterText(val) {
+      this.$refs.permTree.filter(val)
     }
   }
 }
