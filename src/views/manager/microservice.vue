@@ -243,7 +243,7 @@ const serviceType = [
 ]
 
 export default {
-  name: '微服务管理',
+  name: 'mservicesmanager',
   directives: {
     waves
   },

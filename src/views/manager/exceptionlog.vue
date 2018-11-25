@@ -69,7 +69,7 @@ import waves from "@/directive/waves"; // 水波纹指令
 import { parseTime } from "@/utils";
 
 export default {
-  name: "异常日志",
+  name: "exlogsmanager",
   directives: {
     waves
   },

@@ -77,6 +77,11 @@
           <span>{{scope.row.path}}</span>
         </template>
       </el-table-column>
+      <el-table-column  align="center" label="导航标识" width="250px">
+        <template slot-scope="scope">
+          <span>{{scope.row.name}}</span>
+        </template>
+      </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="70px">
         <template slot-scope="scope">
           <el-tag :type="scope.row.status | statusFilter">{{scope.row.status | statusText}}</el-tag>
@@ -145,7 +150,7 @@
           </el-col>
         </el-row>
         <el-row :gutter="10">
-          <el-col :span="10">
+          <el-col :span="8">
             <el-form-item v-if="dialogStatus !== 'topCreate'" label="父节点"> 
               <el-select class="filter-item" v-model="temp.parentid">
                 <el-option v-for="item in typeData" :key="item.id" :label="item.permname" :value="item.id">
@@ -153,36 +158,41 @@
               </el-select>
             </el-form-item> 
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <el-form-item label="是否导航" prop="isnavigate">
               <el-switch v-model="temp.isnavigate"></el-switch>
             </el-form-item>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <el-form-item label="是否插件模式" prop="isplugin">
               <el-switch v-model="temp.isplugin"></el-switch>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="10">
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="导航组件" prop="component">
               <el-input v-model="temp.component"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item label="导航路径path" prop="path">
               <el-input v-model="temp.path"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="8">
+            <el-form-item label="导航标识" prop="name">
+              <el-input v-model="temp.name" placeholder="内容不支持中文字符"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row :gutter="10">
-          <el-col :span="10">
+          <el-col :span="8">
             <el-form-item label="导航标题title" prop="title">
               <el-input v-model="temp.title"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <el-form-item label="状态" prop="status"> 
               <el-select class="filter-item" v-model="temp.status">
                 <el-option v-for="item in permType" :key="item.key" :label="item.display_name" :value="item.key">
@@ -190,7 +200,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <el-form-item label="顺序" prop="sort">
               <el-input v-model.number="temp.sort"></el-input>
             </el-form-item>
@@ -249,7 +259,7 @@ const typeValue = typeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: '权限菜单管理',
+  name: 'permsmanager',
   components: { treeTable },
   directives: {
     waves
@@ -354,6 +364,7 @@ export default {
         component: null,
         title: null,
         path: null,
+        name: null,
         isnavigate: false,
         isplugin: false
       }

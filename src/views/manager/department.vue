@@ -61,7 +61,7 @@ import {
 import waves from '@/directive/waves' // 水波纹指令
 
 export default {
-  name: '部门管理',
+  name: 'deptmentsmanager',
   directives: {
     waves
   },
