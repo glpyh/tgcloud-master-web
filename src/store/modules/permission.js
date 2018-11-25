@@ -41,6 +41,10 @@ function initComponent(asyncRouterMap) {
       element.component = _import(element.component)
       initComponent(element.children)
     }
+
+    if (element.children && element.children.length > 0) {
+      element.redirect = 'noredirect'
+    }
   })
 }
 

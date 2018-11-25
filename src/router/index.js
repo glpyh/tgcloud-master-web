@@ -35,7 +35,7 @@ export const constantRouterMap = [
       path: 'dashboard',
       component: _import('dashboard/index'),
       name: 'dashboard',
-      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+      meta: { title: '主页', icon: 'dashboard', noCache: true }
     }]
   },
   {
@@ -45,7 +45,7 @@ export const constantRouterMap = [
     name: 'logineduser',
     redirect: '/logineduser/index',
     children: [
-      { path: 'index', component: _import('manager/logineduser'), name: 'userdetail', meta: { title: 'logineduser' }}
+      { path: 'index', component: _import('manager/logineduser'), name: 'userdetail', meta: { title: '用户信息' }}
     ]
   }
 ]
